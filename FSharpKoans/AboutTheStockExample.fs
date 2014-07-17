@@ -19,11 +19,13 @@ open FSharpKoans.Core
 // The following function will convert a comma separated string
 // into an array of the column values.
 //                       
-// let splitCommas (x:string) =
-//     x.Split([|','|])
+
 //---------------------------------------------------------------
 [<Koan(Sort = 15)>]
 module ``about the stock example`` =
+
+    let splitCommas (x:string) =
+      x.Split([|','|])
     
     let stockData =
         [ "Date,Open,High,Low,Close,Volume,Adj Close";
@@ -57,6 +59,16 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let dateAndVar line =
+          let cols = splitCommas line 
+          let diff = abs ((System.Double.Parse cols.[1]) - (System.Double.Parse cols.[4]))
+          (cols.[0], diff)
+
+        let result = 
+          stockData
+          |> Seq.skip 1
+          |> Seq.map dateAndVar
+          |> Seq.maxBy snd
+          |> fst
         
         AssertEquality "2012-03-13" result
