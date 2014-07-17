@@ -23,7 +23,10 @@ all:
     AboutClasses.fs \
     PathToEnlightenment.fs \
       --standalone \
-	  -r ../FSharpKoans.Core/bin/FSharpKoans.Core.dll --target:exe -o bin/FSharpKoans.exe
+	  -r ../FSharpKoans.Core/bin/FSharpKoans.Core.dll \
+	  -I ../FSharpKoans.Core/packages/NUnit.2.6.3/lib \
+	  --target:exe \
+	  -o bin/FSharpKoans.exe
 
 watch:
 	wr --exec "make && mono bin/FSharpKoans.exe" *.fs
